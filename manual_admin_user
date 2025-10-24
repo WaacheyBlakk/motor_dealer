@@ -1,0 +1,2 @@
+INSERT INTO users (username, password, role)
+VALUES ('admin', PASSWORD_HASH('admin123', PASSWORD_DEFAULT), 'admin');
