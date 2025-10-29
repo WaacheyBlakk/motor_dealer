@@ -1,16 +1,14 @@
 <?php
-$host = '127.0.0.1';
-$user = 'root';
-$pass = ''; // put your MySQL password if you set one
-$dbname = 'motor_dealer_db';
+// includes/db.php
+$servername = "localhost";
+$dbuser     = "root";
+$dbpass     = "";
+$dbname     = "motor_dealer_db";
 
-$conn = new mysqli($host, $user, $pass, $dbname);
+$conn = new mysqli($servername, $dbuser, $dbpass, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
+    // stop and show a helpful message in dev; in production log instead
     die("Database connection failed: " . $conn->connect_error);
 }
-
-// Optional: set character set
-$conn->set_charset("utf8mb4");
 ?>
