@@ -1,6 +1,9 @@
 <?php
 include 'includes/db.php';
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 include 'includes/functions.php';
 
 
@@ -17,7 +20,7 @@ if (isset($_GET['delete'])) {
     $conn->query("DELETE FROM vehicles WHERE id=$id");
     header("Location: vehicles.php");
     exit();
-    logActivity($_SESSION['username'], "Deleted vehicle ID $id");
+    logActivity("Deleted vehicle ID $id");
 }
 
 // Fetch all vehicles
@@ -35,6 +38,7 @@ $result = $conn->query("SELECT * FROM vehicles ORDER BY id DESC");
 
 <div class="container">
     <h2>Vehicle Inventory</h2>
+    
     <a href="add_vehicle.php" class="btn">+ Add New Vehicle</a>
 
     <table border="1" cellspacing="0" cellpadding="10" width="100%">
