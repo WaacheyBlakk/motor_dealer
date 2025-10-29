@@ -1,6 +1,8 @@
 <?php
 include 'includes/db.php';
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 include 'includes/functions.php';
 
 
@@ -26,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute();
     header("Location: vehicles.php");
     exit();
-    logActivity($_SESSION['username'], "Updated vehicle ID $id - $make $model ($year)");
+    logActivity("Updated vehicle ID $id - $make $model ($year)");
 }
 ?>
 
@@ -59,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <option value="available" <?= $vehicle['status']=='available'?'selected':''; ?>>Available</option>
             <option value="sold" <?= $vehicle['status']=='sold'?'selected':''; ?>>Sold</option>
         </select>
+
+        <label>Vehicle Image:</label>
+        <input type="file" name="image" accept="image/*"><br>
 
         <button type="submit" class="btn">Update Vehicle</button>
     </form>
