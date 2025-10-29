@@ -18,7 +18,10 @@ $users = $conn->query("SELECT * FROM users");
 ?>
 <!DOCTYPE html>
 <html>
-<head><title>Manage Users</title></head>
+<head>
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
 <body>
 <h2>Manage Users</h2>
 <?php if(isset($msg)) echo "<p>$msg</p>"; ?>
