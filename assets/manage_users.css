@@ -1,0 +1,121 @@
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+/* Left form section */
+.form-section {
+    flex: 1;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+/* Right table section */
+.table-section {
+    flex: 2;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    background: #2c3e50;
+    color: #ecf0f1;
+}
+
+.action-btn {
+    padding: 6px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+.edit-btn {
+    background: #27ae60;
+}
+
+.delete-btn {
+    background: #e74c3c;
+}
+
+.edit-btn:hover {
+    background: #1e8449;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}
+
+/* Responsive layout */
+@media (max-width: 900px) {
+    .main-container {
+        flex-direction: column;
+    }
+}
