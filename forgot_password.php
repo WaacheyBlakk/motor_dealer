@@ -1,4 +1,9 @@
 <?php
+// 1. Load PHPMailer classes and Composer autoloader
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php'; 
 include 'includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -15,10 +20,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $update->bind_param("sss", $token, $expiry, $email);
         $update->execute();
 
-        $reset_link = "http://localhost/motor_dealer/reset_password.php?token=$token";
-        $success_message = "✅ A password reset link has been generated:<br><a href='$reset_link' class='link'>$reset_link</a>";
+        $reset_link = "http://reseller.infinityfree.me/reset_password.php?token=$token";
+
+        // Initialize PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->isSMTP();                                            
+            $mail->Host       = 'smtp-relay.brevo.com';                 // Brevo SMTP Host
+            $mail->SMTPAuth   = true;                                   
+            $mail->Username   = 'YOUR_BREVO_LOGIN_EMAIL';               // Replace with your Brevo login email
+            $mail->Password   = 'YOUR_BREVO_SMTP_KEY';                 // Replace with your Brevo SMTP key
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
+            $mail->Port       = 587;                                    
+
+            // Recipients
+            $mail->setFrom('YOUR_BREVO_LOGIN_EMAIL', 'Motor Dealer');   // Use your verified Brevo sender email
+            $mail->addAddress($email);                                  
+
+            // Content
+            $mail->isHTML(true);                                        
+            $mail->Subject = 'Password Reset Request - Motor Dealer';
+            $mail->Body    = "
+                <html>
+                <head>
+                  <title>Password Reset Request</title>
+                </head>
+                <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
+                  <h2>Password Reset Request</h2>
+                  <p>We received a request to reset your password for your Motor Dealer account. Click the button below to set a new password:</p>
+                  <p style='margin: 20px 0;'>
+                    <a href='$reset_link' style='background-color: #1e40af; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;'>Reset Password</a>
+                  </p>
+                  <p>If the button above does not work, copy and paste the following link into your browser:</p>
+                  <p><a href='$reset_link'>$reset_link</a></p>
+                  <p><strong>Note:</strong> This link will expire in 1 hour.</p>
+                  <p>If you did not request this, you can safely ignore this email.</p>
+                </body>
+                </html>
+            ";
+
+            $mail->send();
+            $success_message = "A password reset link has been sent to your email address.";
+        } catch (Exception $e) {
+            $error_message = "Failed to send reset email. Mailer Error: {$mail->ErrorInfo}";
+        }
     } else {
-        $error_message = "❌ No account found with that email.";
+        $error_message = "No account found with that email.";
     }
 }
 ?>
@@ -37,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             height: 100vh;
             margin: 0;
+            box-sizing: border-box;
         }
         .reset-box {
             background: white;
@@ -45,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             width: 360px;
             text-align: center;
+            box-sizing: border-box;
         }
         .reset-box h2 {
             color: #1e3a8a;
@@ -57,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 8px;
             margin-bottom: 15px;
             outline: none;
+            box-sizing: border-box;
             transition: border 0.3s;
         }
         input:focus {

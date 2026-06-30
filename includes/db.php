@@ -1,9 +1,9 @@
 <?php
 // includes/db.php
-$servername = "localhost";
-$dbuser     = "root";
-$dbpass     = "";
-$dbname     = "motor_dealer_db";
+$servername = "	sql103.infinityfree.com";
+$dbuser     = "	if0_42110527";
+$dbpass     = "OyqUFv7j2N3TKd";
+$dbname     = "if0_42110527_dealer_db";
 
 $conn = new mysqli($servername, $dbuser, $dbpass, $dbname);
 
